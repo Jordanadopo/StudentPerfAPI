@@ -14,11 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.shortcuts import redirect
 from django.urls import path
-
 from passpredictor import views
 
 urlpatterns = [
+    path('', lambda _: redirect('admin:index'), name="index"),
     path('admin/', admin.site.urls),
     path('classify/', views.call_model.as_view()),
     path('predictions/', views.get_predictions.as_view())
