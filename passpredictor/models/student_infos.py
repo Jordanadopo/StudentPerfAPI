@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models.fields import IntegerField
 
 class StudentInfos(models.Model):
-    step = models.IntegerField()
     school  = models.CharField(max_length=255)
     sex = models.CharField(max_length=255)
     age  = models.IntegerField()

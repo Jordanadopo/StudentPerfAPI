@@ -21,6 +21,7 @@ from sklearn.feature_selection import SelectKBest, chi2
 from sklearn.svm import LinearSVC # Support Vector Machine Classifier model
 import os
 from api.settings import BASE_DIR
+from passpredictor.models import StudentInfos
 
 class Predictor:
     base_dir = os.path.join(BASE_DIR, 'passpredictor/models')
@@ -28,13 +29,18 @@ class Predictor:
     #load dataset of student portuguese scores
     d1 = pd.read_csv(os.path.join(base_dir,'dataset/student-por.csv'), sep=';')
     d2 = pd.read_csv(os.path.join(base_dir,'dataset/student-mat.csv'), sep=';')
+    d3 = pd.DataFrame()
+    student_provided = StudentInfos.objects.all()
+    if student_provided.count() > 0 :
+        d3 = pd.DataFrame.from_records(student_provided.values())
+
     class_le = LabelEncoder()
 
     def __init__(self):
         """ Read data file as DataFrame """
         
 
-        self.df = pd.concat([self.d1, self.d2])
+        self.df = pd.concat([self.d1, self.d2, self.d3])
 
         # For each feature, encode to categorical values
         for column in self.df[["school", "sex", "address", "famsize", "Pstatus", "Mjob", "Fjob", "reason", "guardian", "schoolsup", "famsup", "paid", "activities", "nursery", "higher", "internet", "romantic"]].columns:

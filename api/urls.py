@@ -20,7 +20,8 @@ from passpredictor import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('classify/', views.call_model.as_view())
+    path('classify/', views.call_model.as_view()),
+    path('predictions/', views.get_predictions.as_view())
 ]
 
 
