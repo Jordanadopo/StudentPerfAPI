@@ -27,7 +27,7 @@ class get_predictions(View):
     def get(self, request):
         
         if request.method == 'GET':
-            qs = StudentInfos.objects.all().__dict__()
+            qs = StudentInfos.objects.all()
             qs_json = serializers.serialize('json', qs)
             return HttpResponse(qs_json, content_type='application/json')
         else:
